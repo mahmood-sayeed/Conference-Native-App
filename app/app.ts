@@ -10,6 +10,7 @@ const firebase = require("nativescript-plugin-firebase");
 firebase.init({
   // Optionally pass in properties for database, authentication and cloud messaging,
   // see their respective docs.
+  //Testing Github
   persist: true
 }).then(
   () => {
