@@ -172,6 +172,10 @@ SegmentedBar {
     padding: 12 12 12 0;
 }
 
+.list-view-row-admin {
+    padding: 12;
+}
+
 .speakers-row {
     padding-top: 12;
 }

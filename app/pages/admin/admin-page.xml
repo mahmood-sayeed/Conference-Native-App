@@ -50,10 +50,7 @@
         <GridLayout rows="*,auto" row="1">
           <ListView items="{{sessions}}" itemTap="selectSession">
             <ListView.itemTemplate>
-              <GridLayout columns="auto,*" class= "{{isBreak ? 'break-row' : 'list-view-row'}}">
-                <GridLayout visibility="{{ isBreak ? 'collapsed' : 'visible' }}" columns="auto" rows="auto" class="favourite-wrap" tap="toggleFavorite">
-                  <Image id="imgFav" stretch="none" class="icon-image" src="{{ favorite ? 'res://ic_add_to_fav_1' : 'res://ic_add_to_fav' }}" />
-                </GridLayout>
+              <GridLayout columns="auto,*" class= "{{isBreak ? 'break-row' : 'list-view-row-admin'}}">
                 <StackLayout col="1">
                   <Label text="{{ title }}" textWrap= "true" class="info-bigger"/>
                   <Label text="{{ room }}" class="info-orange"/>
@@ -71,13 +68,13 @@
           <GridLayout row="1" rows="*,*" columns="56,*" class="content">
             <ListView id="sepakers-list" items="{{ speakers }}" row="3" colSpan="2" height="{{ speakers.length * 72}}" selectedBackgroundColor="#fac950" separatorColor="#FFFFFF">
               <ListView.itemTemplate>
-                <GridLayout columns="56, *" class="speakers-row" swipe="backSwipe">
+                <GridLayout columns="56, *" class="speakers-row" >
                   <Image src="{{ picture }}" class="speaker-image" stretch="aspectFit" rowSpan="2"/>
 
                   <StackLayout col="1">
                     <StackLayout orientation="horizontal">
-                      <Label text="{{ name }}" class="info bold" />
-                      <Label text="{{ twitterName ? ' (' + twitterName + ')' : '' }}" class="info" style="color: #A17201;" />
+                      <Label text="{{ name }}" class="info-bigger bold" />
+                      <Label text="{{ twitterName ? ' (' + twitterName + ')' : '' }}" class="info-bigger" style="color: #A17201;" />
                     </StackLayout>
 
                     <Label text="{{ title }}" class="info" textWrap="true" style="font-style: italic;" />
@@ -91,16 +88,16 @@
         <!-- Rooms -->
 
         <ScrollView row="1" id="scroll2" visibility="{{ selectedViewIndex === 3 ? 'visible' : 'collapsed'}}" class="content-offset">
-          <GridLayout row="1" rows="*,*" columns="56,*" class="content">
-            <ListView id="sepakers-list" items="{{ rooms }}" row="3" colSpan="2" height="{{ rooms.length * 72}}" selectedBackgroundColor="#fac950" separatorColor="#FFFFFF">
+          <GridLayout row="1" rows="*,*"  class="content">
+            <ListView id="rooms-list" items="{{ rooms }}" row="3"  height="{{ rooms.length * 72}}" selectedBackgroundColor="#fac950" >
               <ListView.itemTemplate>
-                <GridLayout columns="56, *" class="speakers-row" swipe="backSwipe">
-                  <StackLayout col="1">
+                <GridLayout class="list-view-row-admin">
+                  <StackLayout colspan="2">
                     <StackLayout orientation="horizontal">
-                      <Label text="{{ name }}" class="info bold" />
-                      <!-- <Label text="{{ twitterName ? ' (' + twitterName + ')' : '' }}" class="info" style="color: #A17201;" /> -->
+                      <Label text="{{ name }}" class="info-bigger bold" />
+                      <Label text="{{ ' (' + theme + ')'}}" class="info-bigger" style="color: #A17201;" />
                     </StackLayout>
-                    <!-- <Label text="{{ title }}" class="info" textWrap="true" style="font-style: italic;" /> -->
+                    <Label text="{{ url }}" class="info" textWrap="true" style="font-style: italic;" />
                   </StackLayout>
                 </GridLayout>
               </ListView.itemTemplate>
