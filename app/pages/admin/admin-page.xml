@@ -1,0 +1,136 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" 
+xmlns:drawer="nativescript-ui-sidedrawer"
+loaded="onPageLoaded" navigatingTo="pageNavigatingTo">
+
+  <!--   <StackLayout style="background-color: #053140;">
+        
+            <GridLayout rows="auto,auto" columns="auto,auto">
+                <Button text="View" tap="adminCreates" class="btn btn-primary btn-rounded-lg btn-active" width="40%" height="15%" backgroundColor="Darkred" row="0" col="0" />
+                <Button text="Add Session" tap="addSessions" class="btn btn-primary btn-rounded-lg btn-active" width="40%" height="15%" backgroundColor="Darkred" row="0" col="1"/>
+                <Button text="Add Speaker" tap="addSpeakers" class="btn btn-primary btn-rounded-lg btn-active" width="40%" height="15%" backgroundColor="Darkred" row="1" col="0"/>
+               
+            </GridLayout>
+
+       
+    </StackLayout>
+ -->
+    <drawer:RadSideDrawer id="SideDrawer" class="page-content">
+       <drawer:RadSideDrawer.drawerTransition>
+            <drawer:SlideInOnTopTransition/>
+        </drawer:RadSideDrawer.drawerTransition>
+        <drawer:RadSideDrawer.drawerContent>
+          <GridLayout rows="*, auto">
+            <StackLayout style="background-color: #053140;">
+              <Image src="res://logo" class="slide-out-img" stretch="none" />
+              <Button tap="selectView" tag="0" class="{{ selectedViewIndex === 0 ? 'slide-out-btn' : 'slide-out-btn-selected' }}" text="My Agenda" />
+              <Button tap="selectView" tag="1" class="{{ selectedViewIndex === 1 ? 'slide-out-btn' : 'slide-out-btn-selected' }}" text="All sessions"/>
+              <Button tap="selectView" tag="2" class="{{ selectedViewIndex === 2 ? 'slide-out-btn' : 'slide-out-btn-selected' }}" text="Speakers" />
+              <Button tap="selectView" tag="3" class="{{ selectedViewIndex === 2 ? 'slide-out-btn' : 'slide-out-btn-selected' }}" text="Rooms" />
+            </StackLayout>
+          </GridLayout>
+      </drawer:RadSideDrawer.drawerContent>
+      <drawer:RadSideDrawer.mainContent>
+        <GridLayout rows="auto,*">
+            <StackLayout class="page-header">
+              <GridLayout class="action-bar darker">
+                <GridLayout class="action-wrap" tap="showSlideout" columns="auto" horizontalAlignment="left">
+                  <Image stretch="none" class="icon-image" src="res://ic_menu"/>
+                </GridLayout>
+                <Label text="{{ actionBarTitle }}" class="action-bar-title" />
+              </GridLayout>
+
+              <GridLayout class="darker" visibility="{{ isSessionsPage ? 'visible' : 'collapsed' }}">
+                <SegmentedBar selectedBackgroundColor="#fac950" items="{{ confDayOptions }}" selectedIndex="{{ selectedIndex }}" />
+              </GridLayout>
+              
+              <Label text="{{ dayHeader }}" class="page-title bold" horizontalAlignment="center" margin="15" visibility="{{ isSessionsPage ? 'visible' : 'collapsed' }}" />
+              
+            </StackLayout>
+
+            
+
+            <GridLayout rows="*,auto" row="1">
+                <ListView items="{{sessions}}" itemTap="selectSession">
+                  <ListView.itemTemplate>
+                        <GridLayout columns="auto,*" class= "{{isBreak ? 'break-row' : 'list-view-row'}}">
+                            <GridLayout visibility="{{ isBreak ? 'collapsed' : 'visible' }}" columns="auto" rows="auto" class="favourite-wrap" tap="toggleFavorite">
+                                <Image id="imgFav" stretch="none" class="icon-image" src="{{ favorite ? 'res://ic_add_to_fav_1' : 'res://ic_add_to_fav' }}" />
+                            </GridLayout>
+                            <StackLayout col="1">
+                                <Label text="{{ title }}" textWrap= "true" class="info-bigger"/>
+                                <Label text="{{ room }}" class="info-orange"/>
+                            </StackLayout>
+                        </GridLayout> 
+                  </ListView.itemTemplate>
+                </ListView>
+
+                <ActivityIndicator busy="{{ isLoading }}" row="1" horizontalAlignment="center" verticalAlignment="center" />
+
+            </GridLayout>
+             
+          <!-- Speakers -->
+          <ScrollView row="1" id="scroll1" visibility="{{ selectedViewIndex === 2 ? 'visible' : 'collapsed'}}" class="content-offset">
+            <GridLayout row="1" rows="auto,auto,*" columns="56,*" class="content" >
+
+               <Label text="SPEAKERS" class="section-header" row="2" col="1" />
+                <ListView id="sepakers-list" items="{{ speakers }}" row="3" colSpan="2" height="{{ speakers.length }}"
+                        selectedBackgroundColor="#fac950" separatorColor="#FFFFFF" >
+                        <ListView.itemTemplate>
+                            <GridLayout columns="56, *" class="speakers-row" swipe="backSwipe">
+                                <Image src="{{ picture }}" class="speaker-image" stretch="aspectFit" rowSpan="2"/>
+
+                                <StackLayout col="1" >
+                                    <StackLayout orientation="horizontal">
+                                        <Label text="{{ name }}" class="info bold" />
+                                        <Label text="{{ twitterName ? ' (' + twitterName + ')' : '' }}" class="info" style="color: #A17201;" />
+                                    </StackLayout>
+
+                                    <Label text="{{ title }}" class="info" textWrap="true" style="font-style: italic;" />
+                                </StackLayout>
+                            </GridLayout>
+                    </ListView.itemTemplate>
+                </ListView>
+                
+                
+
+             <!--  <Button text="Add Room" tap="addRooms" class="btn btn-primary btn-rounded-lg btn-active" width="40%" height="15%" backgroundColor="Darkred" row="1" col="1"/> -->
+
+            </GridLayout>
+          </ScrollView>
+
+            <!-- Rooms -->
+
+            <StackLayout row="1" visibility="{{ selectedViewIndex === 3 ? 'visible' : 'collapsed'}}" class="content-offset">
+
+                <ScrollView row="1" id="scroll2">
+
+                <Label text="ROOMS" class="section-header" row="3" col="1" />
+                <GridLayout row="auto">
+
+                <ListView id="rooms-list" items="{{ rooms }}" row="4" colSpan="2" height="{{ rooms.length * 72 + 46 }}"
+                        selectedBackgroundColor="#fac950" separatorColor="#FFFFFF" >
+                        <ListView.itemTemplate>
+                            <GridLayout columns="56, *" class="speakers-row" swipe="backSwipe">
+
+                                <StackLayout col="1" >
+                                    <StackLayout orientation="horizontal">
+                                        <Label text="{{ name }}" class="info bold" />
+                                        <Label text="{{ roomId ? ' (' + roomId + ')' : '' }}" class="info" style="color: #A17201;" />
+                                    </StackLayout>
+
+                                    <Label text="{{ theme }}" class="info" textWrap="true" style="font-style: italic;" />
+                                    <Label text="{{ url }}" class="info" textWrap="true" style="font-style: italic;" />
+                                </StackLayout>
+                            </GridLayout>
+                    </ListView.itemTemplate>
+                </ListView>
+                </GridLayout>
+                </ScrollView>
+
+            </StackLayout>
+            
+        </GridLayout>
+      </drawer:RadSideDrawer.mainContent>
+    </drawer:RadSideDrawer>
+
+</Page>

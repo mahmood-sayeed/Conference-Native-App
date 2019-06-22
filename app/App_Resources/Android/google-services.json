@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "848534644192",
+    "firebase_url": "https://rps-conf-pro.firebaseio.com",
+    "project_id": "rps-conf-pro",
+    "storage_bucket": "rps-conf-pro.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:848534644192:android:765ad56181b10241",
+        "android_client_info": {
+          "package_name": "org.nativescript.rpsconf1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "848534644192-fjblt0lut33nrrola7olcpaefomu0anm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB66kXCMGyE25e1FIfKlzfpDvXpapbqDdU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "848534644192-fjblt0lut33nrrola7olcpaefomu0anm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "848534644192-e8eg5dmf1n4ur6d8hitettm6e1toke49.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.rps.rpsconf"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

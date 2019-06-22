@@ -1,0 +1,75 @@
+<!--
+The markup in NativeScript apps contains a series of user interface components, each
+of which NativeScript renders with a platform-specific iOS or Android native control.
+You can find a full list of user interface components you can use in your app at
+https://docs.nativescript.org/ui/components.
+-->
+<Page xmlns="http://schemas.nativescript.org/tns.xsd"
+  xmlns:drawer="nativescript-ui-sidedrawer"
+  loaded="onPageLoaded" navigatingTo="pageNavigatingTo" >
+
+    <drawer:RadSideDrawer id="SideDrawer" class="page-content">
+       <drawer:RadSideDrawer.drawerTransition>
+            <drawer:SlideInOnTopTransition/>
+        </drawer:RadSideDrawer.drawerTransition>
+        <drawer:RadSideDrawer.drawerContent>
+          <GridLayout rows="*, auto">
+            <StackLayout style="background-color: #053140;">
+              <Image src="res://logo" class="slide-out-img" stretch="none" />
+              <Button tap="selectView" tag="0" class="{{ selectedViewIndex === 0 ? 'slide-out-btn' : 'slide-out-btn-selected' }}" text="My agenda" />
+              <Button tap="selectView" tag="1" class="{{ selectedViewIndex === 1 ? 'slide-out-btn' : 'slide-out-btn-selected' }}" text="All sessions"/>
+              <Button tap="selectView" tag="2" class="{{ selectedViewIndex === 2 ? 'slide-out-btn' : 'slide-out-btn-selected' }}" text="Sponsors" />
+            </StackLayout>
+          </GridLayout>
+      </drawer:RadSideDrawer.drawerContent>
+      <drawer:RadSideDrawer.mainContent>
+        <GridLayout rows="auto,*">
+            <StackLayout class="page-header">
+              <GridLayout class="action-bar darker">
+                <GridLayout class="action-wrap" tap="showSlideout" columns="auto" horizontalAlignment="left">
+                  <Image stretch="none" class="icon-image" src="res://ic_menu"/>
+                </GridLayout>
+                <Label text="{{ actionBarTitle }}" class="action-bar-title" />
+              </GridLayout>
+
+              <GridLayout class="darker" visibility="{{ isSessionsPage ? 'visible' : 'collapsed' }}">
+                <SegmentedBar selectedBackgroundColor="#fac950" items="{{ confDayOptions }}" selectedIndex="{{ selectedIndex }}" />
+              </GridLayout>
+              
+              <Label text="{{ dayHeader }}" class="page-title bold" horizontalAlignment="center" margin="15" visibility="{{ isSessionsPage ? 'visible' : 'collapsed' }}" />
+              
+            </StackLayout>
+
+            <GridLayout rows="*,auto" row="1">
+                <ListView items="{{sessions}}" itemTap="selectSession">
+                  <ListView.itemTemplate>
+                        <GridLayout columns="auto,*" class= "{{isBreak ? 'break-row' : 'list-view-row'}}">
+                            <GridLayout visibility="{{ isBreak ? 'collapsed' : 'visible' }}" columns="auto" rows="auto" class="favourite-wrap" tap="toggleFavorite">
+                                <Image id="imgFav" stretch="none" class="icon-image" src="{{ favorite ? 'res://ic_add_to_fav_1' : 'res://ic_add_to_fav' }}" />
+                            </GridLayout>
+                            <StackLayout col="1">
+                                <Label text="{{ title }}" textWrap= "true" class="info-bigger"/>
+                                <Label text="{{ room }}" class="info-orange"/>
+                            </StackLayout>
+                        </GridLayout> 
+                  </ListView.itemTemplate>
+                </ListView>
+
+                <ActivityIndicator busy="{{ isLoading }}" row="1" horizontalAlignment="center" verticalAlignment="center" />
+
+            </GridLayout>
+             
+          <!-- Sponsors -->
+          <StackLayout row="1" visibility="{{ selectedViewIndex === 2 ? 'visible' : 'collapsed'}}" class="content-offset">
+
+            <Image src="res://sponsor_logo_fdg" stretch="aspectFit"/>
+            <Label class="info" textWrap="true" text="FDG - Global Provider of IT Services" />
+            <Image src="res://sponsor_logo_umer" stretch="aspectFit"/>
+            <Label class="info" textWrap="true" text="UMER - Business Intelligence Experts" />
+
+          </StackLayout>
+            
+        </GridLayout>
+      </drawer:RadSideDrawer.mainContent>
+    </drawer:RadSideDrawer>
+</Page>

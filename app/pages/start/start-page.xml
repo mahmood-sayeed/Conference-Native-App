@@ -1,0 +1,27 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd"
+loaded="onPageLoaded">
+
+    <GridLayout rows="*,auto" style="background-color: #053140;">
+        <StackLayout class="form m-y-auto" >
+            <Image src="res://logo" height="20%"  width="50%"   />
+            <StackLayout class=" m-x-10 p-y-10">
+                <TextField id="txtUsername" hint="Username" keyboardType="email" autocorrect="false" autocapitalizationType="none"  class="input inputLogin m-t-8" />
+                <StackLayout class="hr-light"></StackLayout>
+                <TextField id="txtPassword" hint="Password" class="input inputLogin m-t-8" secure="true" />
+                <StackLayout class="hr-light"></StackLayout>
+ 
+            </StackLayout>
+            <StackLayout>
+                <Button text="Login as user" tap="userLogin" class="btn btn-primary btn-rounded-lg btn-active" width="60%" height="15%" backgroundColor="Darkred"/>
+                <Button text="Login as admin" tap="mLogin" class="btn btn-primary btn-rounded-lg btn-active" width="60%" height="15%" backgroundColor="Darkred"/>
+
+            </StackLayout>
+
+        
+        </StackLayout>
+
+
+
+    </GridLayout>
+
+</Page>
