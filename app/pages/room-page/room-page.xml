@@ -1,2 +1,52 @@
-<Page>
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="pageNavigatingTo" actionBarHidden="true" backgroundSpanUnderStatusBar="true">
+
+    <GridLayout rows="auto, *" class="page-content">
+        <!-- HEADER -->
+        <StackLayout class="page-header">
+            <GridLayout class="action-bar">
+                <StackLayout tap="backTap" orientation="horizontal" class="action-wrap" horizontalAlignment="left">
+                    <Image stretch="none" class="icon-image" src="res://ic_arrow_back"/>
+                    <Label text="Back" class="back-text" />
+                </StackLayout>
+
+                <Label text="{{ name }}" class="action-bar-title" />
+            </GridLayout>
+        </StackLayout>
+
+        <!-- Content -->
+        <GridLayout row="1" class="content">
+            <StackLayout class="form">
+
+                 <StackLayout class="input-field">
+                    <Label text="Room Id" class="label font-weight-bold m-b-5" />
+                    <Label text="{{ roomInfo.roomId }}" class="info-bigger bold" />
+                    <StackLayout class="hr-light"></StackLayout>
+                </StackLayout>
+
+                <!-- Option 2: An input with a label on top, and a bottom border -->
+                <StackLayout class="input-field">
+                    <Label text="Name" class="label font-weight-bold m-b-5" />
+                    <TextField class="input" text="{{ roomInfo.name }}" id="txtName"/>
+                    <StackLayout class="hr-light"></StackLayout>
+                </StackLayout>
+
+                <!-- Option 3: An label and input—positioned side by side -->
+                <GridLayout class="input-field input-sides" rows="auto, auto" columns="*,*">
+                    <Label text="Theme" class="label font-weight-bold" row="0" col="0" />
+                    <TextField class="input right" row="0" col="1" text="{{ roomInfo.theme }}" id="txtTheme"/>
+                    <StackLayout class="hr-light" row="1" colSpan="2"></StackLayout>
+                </GridLayout>
+
+                <GridLayout class="input-field input-sides" rows="auto, auto" columns="*,*">
+                    <Label text="Url" class="label font-weight-bold" row="0" col="0" />
+                    <TextField class="input right" row="0" col="1" text="{{ roomInfo.url }}"/>
+                    <StackLayout class="hr-light" row="1" colSpan="2"></StackLayout>
+                </GridLayout>
+
+                <Button text="Save" tap="onSave" class="btn btn-primary btn-rounded-lg btn-active" />
+
+            </StackLayout>
+            <ActivityIndicator busy="{{ isLoading }}" horizontalAlignment="center" verticalAlignment="center" />
+        </GridLayout>
+    </GridLayout>
 </Page>

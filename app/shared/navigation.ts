@@ -12,6 +12,13 @@ export function gotoSessionPage(session){
     });
 }
 
+export function gotoRoomPage(room){
+    frameModule.topmost().navigate({
+        moduleName:'pages/room-page/room-page' ,
+        context: room
+    });
+}
+
 export function gotoRoomMapPage(session){
     frameModule.topmost().navigate({
         moduleName:'pages/map-page/map-page' ,

@@ -89,7 +89,8 @@
 
         <ScrollView row="1" id="scroll2" visibility="{{ selectedViewIndex === 3 ? 'visible' : 'collapsed'}}" class="content-offset">
           <GridLayout row="1" rows="*,*"  class="content">
-            <ListView id="rooms-list" items="{{ rooms }}" row="3"  height="{{ rooms.length * 72}}" selectedBackgroundColor="#fac950" >
+            <ListView id="rooms-list" items="{{ rooms }}" itemTap="editRoom"
+             row="3"  height="{{ rooms.length * 72}}" selectedBackgroundColor="#fac950" >
               <ListView.itemTemplate>
                 <GridLayout class="list-view-row-admin">
                   <StackLayout colspan="2">

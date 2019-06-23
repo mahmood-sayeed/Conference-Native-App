@@ -8,6 +8,7 @@ import * as animationHelperModule from "~/shared/animation-helper";
 import { GestureEventData } from "tns-core-modules/ui/gestures/gestures";
 import { Button } from "tns-core-modules/ui/button/button";
 import { SessionViewModel } from "../session-page/session-view-model";
+import { ItemEventData } from "tns-core-modules/ui/list-view/list-view";
 
 
 
@@ -49,17 +50,11 @@ export function showSlideout(args: GestureEventData) {
     slideBar.showDrawer();
 }
 
-//session stuff
 
-export function toggleFavorite(args: GestureEventData){
-    var session = <SessionViewModel>args.view.bindingContext;
-    var gl = <any>args.object;
-    var img = gl.getViewById('imgFav');
-    
-    animationHelperModule.popAnimate(img)
-        .then(() => {
-            session.toggleFavorite();
-        });
+export function editRoom(args: ItemEventData) {
+    var room = <RoomInfo>args.view.bindingContext;
+
+    navigationModule.gotoRoomPage(room);
 }
 
 //  function getAllSpeakers<T>(){
