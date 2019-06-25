@@ -1,5 +1,6 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="pageNavigatingTo" actionBarHidden="true" backgroundSpanUnderStatusBar="true">
 
+
     <GridLayout rows="auto, *" class="page-content">
         <!-- HEADER -->
         <StackLayout class="page-header">
@@ -12,41 +13,51 @@
                 <Label text="{{ name }}" class="action-bar-title" />
             </GridLayout>
         </StackLayout>
-
         <!-- Content -->
         <GridLayout row="1" class="content">
             <StackLayout class="form">
 
-                 <StackLayout class="input-field">
-                    <Label text="Room Id" class="label font-weight-bold m-b-5" />
-                    <Label text="{{ roomInfo.roomId }}" class="info-bigger bold" />
+                <StackLayout class="input-field">
+                    <Label text="Speaker Id" class="label font-weight-bold m-b-5" />
+                    <Label text="{{ speaker.id }}" class="info-bigger bold" />
                     <StackLayout class="hr-light"></StackLayout>
                 </StackLayout>
 
                 <!-- Option 2: An input with a label on top, and a bottom border -->
+
+                
+
+                
                 <StackLayout class="input-field">
                     <Label text="Name" class="label font-weight-bold m-b-5" />
-                    <TextField class="input" text="{{ roomInfo.name }}" id="txtName"/>
+                    <TextField class="input" text="{{ speaker.name }}" />
+                    <StackLayout class="hr-light"></StackLayout>
+                </StackLayout>
+
+                <StackLayout class="input-field">
+                    <Label text="Twitter Name" class="label font-weight-bold m-b-5" />
+                    <TextField class="input" text="{{ speaker.twitterName }}" />
                     <StackLayout class="hr-light"></StackLayout>
                 </StackLayout>
 
                 <!-- Option 3: An label and input—positioned side by side -->
-                <GridLayout class="input-field input-sides" rows="auto, auto" columns="*,*">
-                    <Label text="Theme" class="label font-weight-bold" row="0" col="0" />
-                    <TextField class="input right" row="0" col="1" text="{{ roomInfo.theme }}" id="txtTheme"/>
+                <GridLayout class="input-field input-sides" rows="auto, auto, auto" columns="*,*">
+                    <Label text="Title" class="label font-weight-bold" row="0" col="0" />
+                    <TextField class="input right" row="0" col="1" text="{{ speaker.title }}" />
                     <StackLayout class="hr-light" row="1" colSpan="2"></StackLayout>
                 </GridLayout>
 
                 <GridLayout class="input-field input-sides" rows="auto, auto" columns="*,*">
-                    <Label text="Url" class="label font-weight-bold" row="0" col="0" />
-                    <TextField class="input right" row="0" col="1" text="{{ roomInfo.url }}"/>
+                    <Label text="Company" class="label font-weight-bold" row="0" col="0" />
+                    <TextField class="input right" row="0" col="1" text="{{ speaker.company }}"/>
                     <StackLayout class="hr-light" row="1" colSpan="2"></StackLayout>
                 </GridLayout>
 
-                <Button text="Save" tap="onRoomSave" class="btn btn-primary btn-rounded-lg btn-active" />
+                <Button text="Save" tap="onSpeakerSave" class="btn btn-primary btn-rounded-lg btn-active" />
 
             </StackLayout>
             <ActivityIndicator busy="{{ isLoading }}" horizontalAlignment="center" verticalAlignment="center" />
         </GridLayout>
     </GridLayout>
+
 </Page>

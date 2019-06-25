@@ -57,6 +57,11 @@ export function editRoom(args: ItemEventData) {
     navigationModule.gotoRoomPage(room);
 }
 
+export function editSpeaker(args: ItemEventData){
+    var speaker = <Speaker>args.view.bindingContext;
+    navigationModule.gotoSpeakerPage(speaker);
+}
+
 //  function getAllSpeakers<T>(){
 //     firebase.getValue('/Speakers')
 //       .then(result =>{

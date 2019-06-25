@@ -19,6 +19,13 @@ export function gotoRoomPage(room){
     });
 }
 
+export function gotoSpeakerPage(speaker){
+    frameModule.topmost().navigate({
+        moduleName:'pages/speaker-page/speaker-page' ,
+        context: speaker
+    });
+}
+
 export function gotoRoomMapPage(session){
     frameModule.topmost().navigate({
         moduleName:'pages/map-page/map-page' ,

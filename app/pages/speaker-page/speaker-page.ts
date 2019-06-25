@@ -1,13 +1,11 @@
-import { Page, NavigatedData } from "tns-core-modules/ui/page";
+import { SpeakerViewModel } from "./speaker-view-model";
+import { Page, NavigatedData, EventData } from "tns-core-modules/ui/page";
+import { Speaker } from "~/shared/interfaces";
 import { GestureEventData, SwipeGestureEventData, SwipeDirection } from "tns-core-modules/ui/gestures/gestures";
-import { RoomInfo } from "~/shared/interfaces";
-import * as animationHelperModule from "~/shared/animation-helper";
-import * as roomMapsServiceModule from '../../services/room-map-service';
 import * as navigationModule from "~/shared/navigation";
-import { View, EventData } from "tns-core-modules/ui/core/view/view";
-import { RoomViewModel } from "./room-view-model";
 
-var vm: RoomViewModel;
+
+var vm: SpeakerViewModel;
 var page;
 
 export function pageNavigatingTo(args: NavigatedData) {
@@ -16,7 +14,7 @@ export function pageNavigatingTo(args: NavigatedData) {
     if (!page || !page.navigationContext)
         return;
         
-    vm = new RoomViewModel(<RoomInfo>page.navigationContext);
+    vm = new SpeakerViewModel(<Speaker>page.navigationContext);
     vm.isLoading = true;
     
     page.bindingContext = vm;
@@ -34,8 +32,9 @@ export function backSwipe(args: SwipeGestureEventData) {
     }
 }
 
-export function onRoomSave(args: EventData){
+export function onSpeakerSave(args: EventData){
 
-    console.log('From ts:' + vm.roomInfo.name);
-    vm.saveRoomInfo();
+    console.log('From ts:' + vm.speaker.name);
+    vm.saveSpeaker();
 }
+

@@ -66,7 +66,8 @@
         <!-- Speakers -->
         <ScrollView row="1" id="scroll1" visibility="{{ selectedViewIndex === 2 ? 'visible' : 'collapsed'}}" class="content-offset">
           <GridLayout row="1" rows="*,*" columns="56,*" class="content">
-            <ListView id="sepakers-list" items="{{ speakers }}" row="3" colSpan="2" height="{{ speakers.length * 72}}" selectedBackgroundColor="#fac950" separatorColor="#FFFFFF">
+            <ListView id="sepakers-list" items="{{ speakers }}" itemTap="editSpeaker" 
+            row="3" colSpan="2" height="{{ speakers.length * 72}}" selectedBackgroundColor="#fac950" separatorColor="#FFFFFF">
               <ListView.itemTemplate>
                 <GridLayout columns="56, *" class="speakers-row" >
                   <Image src="{{ picture }}" class="speaker-image" stretch="aspectFit" rowSpan="2"/>
