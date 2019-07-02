@@ -1,13 +1,20 @@
 import * as frameModule from "tns-core-modules/ui/frame";
 
-export function startingPage() {
-    return 'pages/main/main-page';
+// export function startingPage() {
+//     return 'pages/main/main-page';
     
-}
+// }
 
 export function gotoSessionPage(session){
     frameModule.topmost().navigate({
         moduleName:'pages/session-page/session-page' ,
+        context: session
+    });
+}
+
+export function gotoSessionEditPage(session){
+    frameModule.topmost().navigate({
+        moduleName:'pages/sessionedit-page/sessionedit-page' ,
         context: session
     });
 }

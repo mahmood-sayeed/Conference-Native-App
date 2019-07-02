@@ -24,9 +24,6 @@
                 </StackLayout>
 
                 <!-- Option 2: An input with a label on top, and a bottom border -->
-
-                
-
                 
                 <StackLayout class="input-field">
                     <Label text="Name" class="label font-weight-bold m-b-5" />

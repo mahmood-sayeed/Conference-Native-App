@@ -6,7 +6,7 @@ https://docs.nativescript.org/ui/components.
 -->
 <Page xmlns="http://schemas.nativescript.org/tns.xsd"
   xmlns:drawer="nativescript-ui-sidedrawer"
-  loaded="onPageLoaded" navigatingTo="pageNavigatingTo" >
+  loaded="onPageLoaded" navigatingTo="pageNavigatingTo" actionBarHidden="true">
 
     <drawer:RadSideDrawer id="SideDrawer" class="page-content">
        <drawer:RadSideDrawer.drawerTransition>

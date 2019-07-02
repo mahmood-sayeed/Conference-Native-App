@@ -61,6 +61,7 @@ export function selectSession(args: ItemEventData) {
     if (!session.isBreak) {
         navigationModule.gotoSessionPage(session);
     }
+    // Takes to -> session-page, shows session description and speakers.
 }
 
 export function showSlideout(args: GestureEventData) {

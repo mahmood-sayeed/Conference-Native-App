@@ -14,6 +14,8 @@ export function onPageLoaded(args: EventData) {
     page.bindingContext = vm;
 }
 
+//Admin login -> admin page
+
 export function mLogin(args: EventData){
 
     var txtUsername = <any>page.getViewById('txtUsername');
@@ -34,8 +36,11 @@ export function mLogin(args: EventData){
         })
         .catch(error => console.log(error));
 
-        
 }
+
+//User Login -> main page
+
+
 export function userLogin(args:EventData){
     var txtUsername = <any>page.getViewById('txtUsername');
     var txtPassword = <any>page.getViewById('txtPassword');

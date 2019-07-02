@@ -12,6 +12,7 @@ import { ItemEventData } from "tns-core-modules/ui/list-view/list-view";
 
 
 
+
 const firebase = require("nativescript-plugin-firebase");
 
 var vm:AdminViewModel;
@@ -32,9 +33,6 @@ export function pageNavigatingTo(args: NavigatedData) {
     page.bindingContext = vm;
     vm.init();    
 }
-
-
-
 
 
 export function selectView(args: EventData) {
@@ -61,6 +59,31 @@ export function editSpeaker(args: ItemEventData){
     var speaker = <Speaker>args.view.bindingContext;
     navigationModule.gotoSpeakerPage(speaker);
 }
+
+export function editSession(args: ItemEventData) {
+    var session = <Session>args.view.bindingContext; 
+
+    if (!session.isBreak) {
+        console.log('tap worked, reached function');
+        navigationModule.gotoSessionEditPage(session);
+    }
+    // Takes to -> sessionedit-page, shows session description and speakers.
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //  function getAllSpeakers<T>(){
 //     firebase.getValue('/Speakers')

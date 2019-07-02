@@ -51,7 +51,8 @@ export class SessionData{
                     singleEvent: true,
                     orderBy: {
                         type: firebase.QueryOrderByType.CHILD,
-                        value: 'start' // mandatory when type is 'child'
+                        value: 'start' // mandatory when type is 'child', order by start parameter of sessions
+                        //https://github.com/EddyVerbruggen/nativescript-plugin-firebase/blob/master/docs/DATABASE.md
                     }
                 }
             );
@@ -86,6 +87,21 @@ export class SessionData{
             }
         );
     }
+
+
+    public saveSession(session: Session) {
+        firebase.update(
+            '/Sessions/'+session.id,
+            session
+        ).then(() => {
+            console.log("value updated!");
+        })
+    }
+
+
+
+
+
 
     // public getAllSessions(): Promise<Array<Session>>{
     //     return new Promise<Array<Session>>((resolve,reject)=>{

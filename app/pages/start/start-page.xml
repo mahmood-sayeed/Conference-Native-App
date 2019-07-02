@@ -1,5 +1,5 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd"
-loaded="onPageLoaded">
+loaded="onPageLoaded" actionBarHidden="true">
 
     <GridLayout rows="*,auto" style="background-color: #053140;">
         <StackLayout class="form m-y-auto" >

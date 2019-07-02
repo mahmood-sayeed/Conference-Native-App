@@ -1,5 +1,5 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" 
-  xmlns:drawer="nativescript-ui-sidedrawer" loaded="onPageLoaded" navigatingTo="pageNavigatingTo">
+  xmlns:drawer="nativescript-ui-sidedrawer" loaded="onPageLoaded" navigatingTo="pageNavigatingTo" actionBarHidden="true">
 
   <!--   <StackLayout style="background-color: #053140;">
         
@@ -48,7 +48,7 @@
 
 
         <GridLayout rows="*,auto" row="1">
-          <ListView items="{{sessions}}" itemTap="selectSession">
+          <ListView items="{{sessions}}" itemTap="editSession">
             <ListView.itemTemplate>
               <GridLayout columns="auto,*" class= "{{isBreak ? 'break-row' : 'list-view-row-admin'}}">
                 <StackLayout col="1">
