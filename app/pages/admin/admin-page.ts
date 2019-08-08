@@ -61,11 +61,11 @@ export function editSpeaker(args: ItemEventData){
 }
 
 export function editSession(args: ItemEventData) {
-    var session = <Session>args.view.bindingContext; 
+    var sessionView = <SessionViewModel>args.view.bindingContext; 
 
-    if (!session.isBreak) {
+    if (!sessionView.isBreak) {
         console.log('tap worked, reached function');
-        navigationModule.gotoSessionEditPage(session);
+        navigationModule.gotoSessionEditPage(sessionView.session);
     }
     // Takes to -> sessionedit-page, shows session description and speakers.
 }

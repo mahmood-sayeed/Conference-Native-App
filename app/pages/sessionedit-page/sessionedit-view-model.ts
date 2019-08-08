@@ -29,6 +29,7 @@ export class SessionEditViewModel extends Observable{
     public saveSession()
     {
         console.log(this._session.title);
+        console.log(this._session.id);
         this._sessionData.saveSession(this._session);
     }
 

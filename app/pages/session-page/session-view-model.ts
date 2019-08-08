@@ -21,6 +21,11 @@ export class SessionViewModel extends Observable implements Session{
         
     }
 
+    get session(): Session
+    {
+        return this._session;
+    }
+
     get id():string{
         return this._session.id;
     }
