@@ -1,30 +1,20 @@
 import * as appSettingModule from "tns-core-modules/application-settings";
-import { FavouriteSession } from "~/shared/interfaces";
+import { User } from "~/shared/interfaces";
 import { SessionViewModel } from "~/pages/session-page/session-view-model";
+import { UserData } from "~/data/user-data";
 
-var FAVOURITES= "FAVOURITES";
-
-export var favourites: Array<FavouriteSession>;
+export var userData: UserData;
 
 try {
-   favourites =<Array<FavouriteSession>>JSON.parse(appSettingModule.getString(FAVOURITES, '[]'));
+   userData= new UserData();
 }
 catch(error) {
     console.log("Error while retreivng favourites : "+error);
-    favourites=new Array<FavouriteSession>();
-}
-
-export function findSessionIndexInFavourites(sessionId: string): number {
-    for (var i = 0; i < favourites.length; i++) {
-        if (favourites[i].sessionId === sessionId) {
-            return i;
-        }
-    }
-    return -1;
+    
 }
 
 export function addToFavourites(session: SessionViewModel) {
-    if (findSessionIndexInFavourites(session.id) >= 0) {
+    if (session.user.favourites.indexOf(session.id) >= 0) {
         // Sesson already added to favourites.
         return;
     }
@@ -32,23 +22,19 @@ export function addToFavourites(session: SessionViewModel) {
 }
 
 export function removeFromFavourites(session: SessionViewModel) {
-    var index = findSessionIndexInFavourites(session.id);
+    var index = session.user.favourites.indexOf(session.id);
     if (index >= 0) {
-        favourites.splice(index, 1);
-        updateFavourites();
+        session.user.favourites.splice(index, 1);
+        updateFavourites(session.user);
     }
 }
 
 function persistSessionToFavourites(session: SessionViewModel) {
-    favourites.push({
-        sessionId: session.id,
-        calendarEventId: session.calendarEventId
-    });
-    updateFavourites();
+    session.user.favourites.push(session.id);
+    updateFavourites(session.user);
 }
 
-function updateFavourites() {
-    var newValue = JSON.stringify(favourites);
-    console.log('favourites: ' + newValue);
-    appSettingModule.setString(FAVOURITES, newValue);
+function updateFavourites(user: User) {
+    console.log('favourites: ' + user.favourites);
+    userData.saveUser(user);
 }

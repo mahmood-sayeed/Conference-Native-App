@@ -1,15 +1,18 @@
 import { Observable } from "tns-core-modules/data/observable";
-import { Session, ConferenceDay } from "~/shared/interfaces";
+import { Session, ConferenceDay, User } from "~/shared/interfaces";
 import { SessionViewModel } from "../session-page/session-view-model";
 import { SessionService } from "~/services/sessions-service";
 import { conferenceDays } from "~/shared/static-data";
 import {SegmentedBarItem} from 'tns-core-modules/ui/segmented-bar';
+import { UserData } from "~/data/user-data";
 
 export class MainViewModel extends Observable {
 
     private _selectedIndex;
     private _allSessions: Array<SessionViewModel> = new Array<SessionViewModel>();
     private _sessions: Array<SessionViewModel>;
+    private _userData: UserData;
+    private _user: User;
     
     private _sessionSerive: SessionService;
     public selectedViewIndex:number;
@@ -18,6 +21,7 @@ export class MainViewModel extends Observable {
     constructor() {
         super();
         this._sessionSerive = new SessionService();
+        this._userData= new UserData();
         this.selectedIndex = 0;
         this.selectedViewIndex = 1;
         this.set('isLoading',true);
@@ -31,6 +35,11 @@ export class MainViewModel extends Observable {
             this._confDayOptions.push(item);
         }
         
+    }
+
+    get user(): User
+    {
+        return this._user;
     }
 
     get sessions():Array<SessionViewModel>{
@@ -55,14 +64,20 @@ export class MainViewModel extends Observable {
     }
 
     public init(){
+        
         this._sessionSerive.loadSessions<Array<Session>>()
         .then((result:Array<Session>)=>{
-            this.pushSessions(result);
-            this.onDataLoaded();
+            this._userData.getUser()
+            .then((user:User)=>{
+                this._user= user;
+               
+                this.pushSessions(result);
+                this.onDataLoaded();
+            });
         });
 
-        
     }
+
     private onDataLoaded() {
         this.set('isLoading',false);
         this.filter();
@@ -91,7 +106,7 @@ export class MainViewModel extends Observable {
     private pushSessions(sessionsFromservice: Array<Session>) {
        for(var i = 0;i<sessionsFromservice.length;i++)
        {
-           var newSession = new SessionViewModel(sessionsFromservice[i]);
+           var newSession = new SessionViewModel(sessionsFromservice[i], this._user);
            this._allSessions.push(newSession);
        }
     }

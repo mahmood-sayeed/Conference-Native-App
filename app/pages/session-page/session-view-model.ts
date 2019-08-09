@@ -1,5 +1,5 @@
 import { Observable } from "tns-core-modules/data/observable";
-import { Session, Speaker, RoomInfo } from "~/shared/interfaces";
+import { Session, Speaker, RoomInfo, User } from "~/shared/interfaces";
 import * as favoritesServiceModule from '~/services/favourites-service';
 
 export class SessionViewModel extends Observable implements Session{
@@ -8,8 +8,9 @@ export class SessionViewModel extends Observable implements Session{
     private _favorite: boolean;
     private _startDt: Date;
     private _endDt: Date;
+    private _user: User;
 
-    constructor(source?: Session) {
+    constructor(source?: Session, user?: User) {
         super();
 
         if(source)
@@ -17,8 +18,25 @@ export class SessionViewModel extends Observable implements Session{
             this._session= source;
             this._startDt = this.fixDate(new Date(source.start));
             this._endDt = this.fixDate(new Date(source.end));
+
+            if(user)
+            {
+                this._user = user;
+                if(user.favourites.indexOf(this._session.id) > -1)
+                {
+                    this._favorite=true;
+
+                }
+            }
         }
+
         
+        
+    }
+
+    get user(): User
+    {
+        return this._user;
     }
 
     get session(): Session
@@ -105,13 +123,16 @@ export class SessionViewModel extends Observable implements Session{
     }
     public toggleFavorite(){
         this.favorite = !this.favorite;
-        if(this.favorite) {
-            favoritesServiceModule.addToFavourites(this);
-
+        if(!this._session.isBreak){
+            if(this.favorite) {
+                favoritesServiceModule.addToFavourites(this);
+    
+            }
+            else {
+                favoritesServiceModule.removeFromFavourites(this);
+            }
         }
-        else {
-            favoritesServiceModule.removeFromFavourites(this);
-        }
+        
     }
     private fixDate(date: Date): Date {
         return new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());

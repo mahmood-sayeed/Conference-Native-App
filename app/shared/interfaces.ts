@@ -35,9 +35,9 @@ export interface Session{
     isBreak: boolean;
 }
 
-export interface FavouriteSession{
-    sessionId: string;
-    calendarEventId: string;
+export interface User{
+    uuid: string;
+    favourites: Array<string>;
 }
 
 export interface ConfTimeSlot {
