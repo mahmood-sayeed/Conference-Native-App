@@ -27,7 +27,19 @@ export interface Session{
     start: string;
     end: string;
     room: string;
-    roomInfo: RoomInfo;
+    speakers: Array<Speaker>;
+    description: string;
+    descriptionShort: string;
+    calendarEventId: string;
+    isBreak: boolean;
+}
+
+export interface SessionUpdate{
+    id: string;
+    title: string;
+    start: string;
+    end: string;
+    room: string;
     speakers: Array<Speaker>;
     description: string;
     descriptionShort: string;

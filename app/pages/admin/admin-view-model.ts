@@ -5,6 +5,7 @@ import { SessionViewModel } from "../session-page/session-view-model";
 import { SessionService } from "~/services/sessions-service";
 import { SegmentedBarItem } from "tns-core-modules/ui/segmented-bar/segmented-bar";
 import { conferenceDays } from "~/shared/static-data";
+import { RoomData } from "~/data/room-data";
 const firebase = require("nativescript-plugin-firebase");
 
 
@@ -14,6 +15,8 @@ export class AdminViewModel extends Observable{
     private _speakers: Array<Speaker> = new Array<Speaker>(); 
     private _rooms: Array<RoomInfo> = new Array<RoomInfo>(); 
     private _sessionData: SessionData;
+    private _roomInfo: RoomInfo;
+    private _roomData: RoomData;
 
     public selectedViewIndex:number;
     private _allSessions: Array<SessionViewModel> = new Array<SessionViewModel>();
@@ -24,6 +27,7 @@ export class AdminViewModel extends Observable{
     constructor(){
         super();
         this._sessionData = new SessionData();
+        
         this.selectedIndex = 0;
         this.selectedViewIndex = 1;
         this.set('isLoading',true);
@@ -44,16 +48,19 @@ export class AdminViewModel extends Observable{
         promises.push(this._sessionData.getAllSpeakers());
         promises.push(this._sessionData.getAllRooms());
         promises.push(this._sessionData.getAllSessions());
+        
 
         Promise.all(promises)
-            .then(values => {
+            .then(async values => {
                 this.pushSpeakers(values[0]);
                 console.log("got speakers: " + this._speakers.length);
 
                 this.pushRooms(values[1]);
                 console.log("got rooms: " + this._rooms.length);
 
-                this.pushSessions(values[2]);
+                this._roomData= new RoomData();
+
+                await this.pushSessions(values[2]);
                 
                 console.log("got sessions: " + this._allSessions.length);
 
@@ -131,13 +138,23 @@ export class AdminViewModel extends Observable{
        return this._confDayOptions;
     }
 
-    private pushSessions(sessionsFromservice: Array<Session>) {
+    private async pushSessions(sessionsFromservice: Array<Session>) {
         for(var i = 0;i<sessionsFromservice.length;i++)
         {
-            var newSession = new SessionViewModel(sessionsFromservice[i]);
+            await this.getSingleRoom(sessionsFromservice[i]);
+            var newSession = await new SessionViewModel(sessionsFromservice[i], null, this._roomInfo);
             this._allSessions.push(newSession);
         }
      }
+
+     private async getSingleRoom(sessionsFromservice: Session) {
+
+        this._roomInfo=null;
+        if (sessionsFromservice.room) {
+            this._roomInfo = await this._roomData.getRoomInfo(sessionsFromservice.room);
+        }
+
+    }
 
     private pushSpeakers(speakersFromservice: Array<Speaker>) {
         for(var i = 0;i<speakersFromservice.length;i++)

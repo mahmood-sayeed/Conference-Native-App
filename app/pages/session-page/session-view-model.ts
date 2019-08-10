@@ -2,6 +2,7 @@ import { Observable } from "tns-core-modules/data/observable";
 import { Session, Speaker, RoomInfo, User } from "~/shared/interfaces";
 import * as favoritesServiceModule from '~/services/favourites-service';
 
+
 export class SessionViewModel extends Observable implements Session{
 
     private _session: Session;
@@ -9,16 +10,22 @@ export class SessionViewModel extends Observable implements Session{
     private _startDt: Date;
     private _endDt: Date;
     private _user: User;
+    private _roomInfo: RoomInfo;
+    
 
-    constructor(source?: Session, user?: User) {
+    
+    constructor(source?: Session, user?: User,  room?: RoomInfo) {
         super();
-
         if(source)
         {
+            
             this._session= source;
             this._startDt = this.fixDate(new Date(source.start));
             this._endDt = this.fixDate(new Date(source.end));
-
+            if(room){
+               
+                this._roomInfo= room;
+            }
             if(user)
             {
                 this._user = user;
@@ -51,19 +58,14 @@ export class SessionViewModel extends Observable implements Session{
         return this._session.title;
     }
     get room():string{
-        if(this._session.room)
+        if(this._roomInfo)
         {
-            return this._session.room;
-        }
-        if(this._session.roomInfo)
-        {
-            return this._session.roomInfo.name;
+            return this._roomInfo.name;
         }
         return null;
-        
     }
     get roomInfo():RoomInfo{
-        return this._session.roomInfo;
+        return this._roomInfo;
     }
     get start():string{
         return this._session.start;

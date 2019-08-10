@@ -1,4 +1,4 @@
-import { Speaker, RoomInfo, Session } from "~/shared/interfaces";
+import { Speaker, RoomInfo, Session, SessionUpdate } from "~/shared/interfaces";
 
 const firebase = require("nativescript-plugin-firebase");
 
@@ -91,6 +91,15 @@ export class SessionData{
 
     public saveSession(session: Session) {
         firebase.update(
+            '/Sessions/'+session.id,
+            session
+        ).then(() => {
+            console.log("value updated!");
+        })
+    }
+
+    public saveSessionUpdate(session: SessionUpdate) {
+        firebase.setValue(
             '/Sessions/'+session.id,
             session
         ).then(() => {
