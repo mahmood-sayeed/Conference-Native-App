@@ -28,6 +28,24 @@
                     <StackLayout class="hr-light" row="1" colSpan="2"></StackLayout>
                 </GridLayout>
 
+                <GridLayout class="input-field input-sides" rows="auto, auto, auto" columns="*,*">
+                    <Label text="Description" class="label font-weight-bold" row="0" col="0" />
+                    <TextField class="input right" row="0" col="1" text="{{ session.description }}" />
+                    <StackLayout class="hr-light" row="1" colSpan="2"></StackLayout>
+                </GridLayout>
+
+                <GridLayout class="input-field input-sides" rows="auto, auto, auto" columns="*,*">
+                    <Label text="Starts" class="label font-weight-bold" row="0" col="0" />
+                    <TextField class="input right" row="0" col="1" text="{{ session.start }}" />
+                    <StackLayout class="hr-light" row="1" colSpan="2"></StackLayout>
+                </GridLayout>
+
+                <GridLayout class="input-field input-sides" rows="auto, auto, auto" columns="*,*">
+                    <Label text="Ends" class="label font-weight-bold" row="0" col="0" />
+                    <TextField class="input right" row="0" col="1" text="{{ session.end }}" />
+                    <StackLayout class="hr-light" row="1" colSpan="2"></StackLayout>
+                </GridLayout>
+
                 <Button text="Save" tap="onSessionSave" class="btn btn-primary btn-rounded-lg btn-active" />
 
             </StackLayout>
