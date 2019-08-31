@@ -13,7 +13,7 @@ import { ItemEventData } from "tns-core-modules/ui/list-view";
 import * as navigationModule from "~/shared/navigation";
 import { Button } from "tns-core-modules/ui/button/button";
 import * as animationHelperModule from "~/shared/animation-helper";
-import { AdminViewModel } from "../admin/admin-view-model";
+const firebase = require("nativescript-plugin-firebase");
 
 var vm;
 var SIDE_DRAWER_ID = 'SideDrawer';
@@ -68,3 +68,9 @@ export function showSlideout(args: GestureEventData) {
     var slideBar = <any>page.getViewById(SIDE_DRAWER_ID);
     slideBar.showDrawer();
 }
+
+export function logout(args: ItemEventData){
+    firebase.logout();
+    navigationModule.gotoStartPage();
+}
+

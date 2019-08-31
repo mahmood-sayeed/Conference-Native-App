@@ -19,6 +19,12 @@ export function gotoSessionEditPage(session){
     });
 }
 
+export function gotoSessionCreatePage(){
+    frameModule.topmost().navigate({
+        moduleName:'pages/sessioncreate/sessioncreate-page' ,
+    });
+}
+
 export function gotoRoomPage(room){
     frameModule.topmost().navigate({
         moduleName:'pages/room-page/room-page' ,
@@ -47,6 +53,17 @@ export function gotoRoomMapPage(session){
 
 export function goBack() {
     frameModule.topmost().goBack();
+}
+
+export function gotoStartPage(){
+    frameModule.topmost().navigate({
+        moduleName: 'pages/start/start-page',
+        transition:{
+            name: 'fade',
+            duration: 500,
+            curve: 'easeIn'
+        }
+    });
 }
 
 export function gotoMainPage(){

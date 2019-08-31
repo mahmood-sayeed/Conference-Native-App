@@ -90,7 +90,7 @@ export class SessionData{
 
 
     public saveSession(session: Session) {
-        firebase.update(
+        firebase.setValue(
             '/Sessions/'+session.id,
             session
         ).then(() => {
@@ -104,6 +104,17 @@ export class SessionData{
             session
         ).then(() => {
             console.log("value updated!");
+        })
+    }
+
+    public createSession(session: Session){
+        console.log("reached sessiondata for create")
+        firebase.push(
+            '/Sessions/',
+            { calenderEventId: session.calendarEventId,  description: session.description, descriptionShort: session.descriptionShort, end: session.end, id: session.id, isBreak: session.isBreak, room: session.room, speakers: session.speakers, start: session.start, title: session.title }
+        ).then(() => {
+            console.log(session);
+            console.log("session created");
         })
     }
 

@@ -1,5 +1,6 @@
 import { Observable } from "tns-core-modules/ui/page/page";
 const firebase = require("nativescript-plugin-firebase");
+import * as navigationModule from "~/shared/navigation";
 
 
 export class StartViewModel extends Observable{
@@ -14,12 +15,13 @@ export class StartViewModel extends Observable{
             {
               type: firebase.LoginType.PASSWORD,
               passwordOptions: {
-                email:'admin@rps.com',
-                password: 'zaks123'
+                email:email,
+                password: password
               }
             })
             .then(result => {
                 console.log(JSON.stringify(result));
+                navigationModule.gotoMainPage();
             })
             .catch(error => console.log(error));
 

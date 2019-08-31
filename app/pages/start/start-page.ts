@@ -45,5 +45,5 @@ export function userLogin(args:EventData){
     var txtUsername = <any>page.getViewById('txtUsername');
     var txtPassword = <any>page.getViewById('txtPassword');
     vm.userLogin(txtUsername.text,txtPassword.text);
-    navigationModule.gotoMainPage();
+    
 }

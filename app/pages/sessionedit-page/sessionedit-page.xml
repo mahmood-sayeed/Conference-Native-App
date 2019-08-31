@@ -46,6 +46,12 @@
                     <StackLayout class="hr-light" row="1" colSpan="2"></StackLayout>
                 </GridLayout>
 
+                <GridLayout class="input-field input-sides" rows="auto, auto, auto" columns="*,*">
+                    <Label text="Room" class="label font-weight-bold" row="0" col="0" />
+                    <ListPicker items="{{ rooms }}" textField="name" valueField="roomId" selectedIndex = "1" loaded="onListPickerLoaded" class="p-15 picker" row="0" col="1"/>
+                    <StackLayout class="hr-light" row="1" colSpan="2"></StackLayout>
+                </GridLayout>
+
                 <Button text="Save" tap="onSessionSave" class="btn btn-primary btn-rounded-lg btn-active" />
 
             </StackLayout>

@@ -19,6 +19,7 @@ https://docs.nativescript.org/ui/components.
               <Button tap="selectView" tag="0" class="{{ selectedViewIndex === 0 ? 'slide-out-btn' : 'slide-out-btn-selected' }}" text="My agenda" />
               <Button tap="selectView" tag="1" class="{{ selectedViewIndex === 1 ? 'slide-out-btn' : 'slide-out-btn-selected' }}" text="All sessions"/>
               <Button tap="selectView" tag="2" class="{{ selectedViewIndex === 2 ? 'slide-out-btn' : 'slide-out-btn-selected' }}" text="Sponsors" />
+              <Button tap="logout" tag="3" class="{{ selectedViewIndex === 3 ? 'slide-out-btn' : 'slide-out-btn-selected' }}" text="Logout" />
             </StackLayout>
           </GridLayout>
       </drawer:RadSideDrawer.drawerContent>

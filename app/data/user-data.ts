@@ -1,4 +1,4 @@
-import { Speaker, RoomInfo, Session, FavouriteUserSession, User } from "~/shared/interfaces";
+import { Speaker, RoomInfo, Session, User } from "~/shared/interfaces";
 
 const firebase = require("nativescript-plugin-firebase");
 

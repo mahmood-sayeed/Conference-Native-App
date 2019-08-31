@@ -70,6 +70,14 @@ export function editSession(args: ItemEventData) {
     // Takes to -> sessionedit-page, shows session description and speakers.
 }
 
+export function createSession(args: ItemEventData){
+    navigationModule.gotoSessionEditPage(null);
+}
+
+export function logout(args: ItemEventData){
+    navigationModule.gotoStartPage();
+}
+
 
 
 

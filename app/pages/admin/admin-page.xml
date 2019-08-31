@@ -24,6 +24,8 @@
           <Button tap="selectView" tag="1" class="{{ selectedViewIndex === 1 ? 'slide-out-btn' : 'slide-out-btn-selected' }}" text="All sessions"/>
           <Button tap="selectView" tag="2" class="{{ selectedViewIndex === 2 ? 'slide-out-btn' : 'slide-out-btn-selected' }}" text="Speakers" />
           <Button tap="selectView" tag="3" class="{{ selectedViewIndex === 3 ? 'slide-out-btn' : 'slide-out-btn-selected' }}" text="Rooms" />
+          <Button tap="createSession" tag="4" class="{{ selectedViewIndex === 4 ? 'slide-out-btn' : 'slide-out-btn-selected' }}" text="Create Session" />
+          <Button tap="logout" tag="5" class="{{ selectedViewIndex === 5 ? 'slide-out-btn' : 'slide-out-btn-selected' }}" text="Logout" />
         </StackLayout>
       </GridLayout>
     </drawer:RadSideDrawer.drawerContent>
