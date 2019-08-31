@@ -21,6 +21,7 @@ export class MainViewModel extends Observable {
     private _sessionSerive: SessionService;
     public selectedViewIndex: number;
     private _confDayOptions: Array<SegmentedBarItem>;
+    private _sessionData: SessionData;
 
     constructor() {
         super();
@@ -30,6 +31,8 @@ export class MainViewModel extends Observable {
         this.selectedViewIndex = 1;
         this.set('isLoading', true);
         this.set('isSessionsPage', true);
+
+        this._sessionData= new SessionData();
 
 
         this._confDayOptions = [];
@@ -124,6 +127,27 @@ export class MainViewModel extends Observable {
            
             await this.getSingleRoom(sessionsFromservice[i]);
             var newSession = await new SessionViewModel(sessionsFromservice[i], this._user, this._roomInfo);
+            // if(newSession.roomInfo && !newSession.isBreak)
+            // {
+            //     console.log('Session:' + newSession.room);
+
+            //         var sessionUpdate: SessionUpdate = {
+            //         id: sessionsFromservice[i].id,
+            //         title: sessionsFromservice[i].title,
+            //         start: sessionsFromservice[i].start,
+            //         end: sessionsFromservice[i].end,
+            //         room: newSession.roomInfo.roomId,
+            //         speakers: sessionsFromservice[i].speakers? sessionsFromservice[i].speakers: null,
+            //         description: sessionsFromservice[i].description,
+            //         descriptionShort: sessionsFromservice[i].descriptionShort,
+            //         calendarEventId: sessionsFromservice[i].calendarEventId,
+            //         isBreak: sessionsFromservice[i].isBreak
+
+            //     }
+
+            //     this._sessionData.saveSessionUpdate(sessionUpdate);
+
+            // }
 
             this._allSessions.push(newSession);
 

@@ -10,19 +10,19 @@ const pokemonList = ["Bulbasaur", "Parasect", "Venonat", "Venomoth", "Diglett",
 var vm: SessionEditViewModel;
 var page;
 
-export function pageNavigatingTo(args: NavigatedData) {
+export async function pageNavigatingTo(args: NavigatedData) {
     page = <Page>args.object;
     
-    if (!page || !page.navigationContext)
+    if (!page)
         return;
         
-    vm = new SessionEditViewModel(<Session>page.navigationContext);
+    vm =  new SessionEditViewModel(<Session>page.navigationContext);
     vm.isLoading = true;
-    
-    page.bindingContext = vm;
-
-    vm.isLoading=false;
+    await vm.init();
+    page.bindingContext=vm;
 }
+
+
 
 export function backTap(args: GestureEventData) {
     navigationModule.goBack();
@@ -36,11 +36,10 @@ export function backSwipe(args: SwipeGestureEventData) {
 
 export function onListPickerLoaded(args: EventData) {
     const listPicker = <ListPicker>args.object;
-    const vm = listPicker.page.bindingContext;
     listPicker.on("selectedIndexChange", (lpargs) => {
-        //vm.set("index", listPicker.selectedIndex);
-        console.log(`ListPicker selected value: ${(<any>listPicker).selectedValue}`);
-        console.log(`ListPicker selected index: ${listPicker.selectedIndex}`);
+       
+        //console.log(`ListPicker selected value: ${(<any>listPicker).selectedValue}`);
+        //console.log(`ListPicker selected index: ${listPicker.selectedIndex}`);
     });
 }
 
