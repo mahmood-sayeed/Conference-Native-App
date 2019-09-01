@@ -14,48 +14,55 @@
         </StackLayout>
         <!-- Content -->
         <GridLayout row="1" class="content">
-            <StackLayout class="form">
+            <ScrollView>
+                <StackLayout class="form">
 
-                <StackLayout class="input-field">
-                    <Label text="Session Id" class="label font-weight-bold m-b-5" />
-                    <Label text="{{ session.id }}" class="info-bigger bold" />
-                    <StackLayout class="hr-light"></StackLayout>
+                    <StackLayout class="input-field">
+                        <Label text="Session Id" class="label font-weight-bold m-b-5" />
+                        <Label text="{{ session.id }}" class="info-bigger bold" />
+                        <StackLayout class="hr-light"></StackLayout>
+                    </StackLayout>
+
+                    <StackLayout class="input-field">
+                        <Label text="Calender Event Id" class="label font-weight-bold m-b-5" />
+                        <Label text="{{ session.calendarEventId }}" class="info-bigger bold" />
+                        <StackLayout class="hr-light"></StackLayout>
+                    </StackLayout>
+
+                    <StackLayout class="input-field">
+                        <Label text="Title" class="label font-weight-bold m-b-5" />
+                        <TextField class="input" text="{{ session.title }}" />
+                        <StackLayout class="hr-light"></StackLayout>
+                    </StackLayout>
+
+                    <StackLayout class="input-field">
+                        <Label text="Rooms" class="label font-weight-bold m-b-5" />
+                        <ListPicker items="{{ rooms }}" textField="name" valueField="roomId" selectedIndex="{{ selectedRoom }}" selectedValue="{{ session.room }}" loaded="onListPickerLoaded" class="p-15 picker" />
+                        <StackLayout class="hr-light"></StackLayout>
+                    </StackLayout>
+
+                    <StackLayout class="input-field">
+                        <Label text="Description" class="label font-weight-bold m-b-5" />
+                        <TextView class="input" text="{{ session.description }}" />
+                        <StackLayout class="hr-light"></StackLayout>
+                    </StackLayout>
+
+                    <StackLayout class="input-field">
+                        <Label text="Starts" class="label font-weight-bold m-b-5" />
+                        <TextField class="input" text="{{ session.start }}" />
+                        <StackLayout class="hr-light"></StackLayout>
+                    </StackLayout>
+
+                    <StackLayout class="input-field">
+                        <Label text="Ends" class="label font-weight-bold m-b-5" />
+                        <TextField class="input" text="{{ session.end }}" />
+                        <StackLayout class="hr-light"></StackLayout>
+                    </StackLayout>
+
+                    <Button text="Save" tap="onSessionSave" class="btn btn-primary btn-rounded-lg btn-active" />
+
                 </StackLayout>
-
-                <GridLayout class="input-field input-sides" rows="auto, auto, auto" columns="*,*">
-                    <Label text="Title" class="label font-weight-bold" row="0" col="0" />
-                    <TextField class="input right" row="0" col="1" text="{{ session.title }}" />
-                    <StackLayout class="hr-light" row="1" colSpan="2"></StackLayout>
-                </GridLayout>
-
-                <GridLayout class="input-field input-sides" rows="auto, auto, auto" columns="*,*">
-                    <Label text="Description" class="label font-weight-bold" row="0" col="0" />
-                    <TextField class="input right" row="0" col="1" text="{{ session.description }}" />
-                    <StackLayout class="hr-light" row="1" colSpan="2"></StackLayout>
-                </GridLayout>
-
-                <GridLayout class="input-field input-sides" rows="auto, auto, auto" columns="*,*">
-                    <Label text="Starts" class="label font-weight-bold" row="0" col="0" />
-                    <TextField class="input right" row="0" col="1" text="{{ session.start }}" />
-                    <StackLayout class="hr-light" row="1" colSpan="2"></StackLayout>
-                </GridLayout>
-
-                <GridLayout class="input-field input-sides" rows="auto, auto, auto" columns="*,*">
-                    <Label text="Ends" class="label font-weight-bold" row="0" col="0" />
-                    <TextField class="input right" row="0" col="1" text="{{ session.end }}" />
-                    <StackLayout class="hr-light" row="1" colSpan="2"></StackLayout>
-                </GridLayout>
-
-                <GridLayout class="input-field input-sides" rows="auto, auto, auto" columns="*,*">
-                    <Label text="Rooms" class="label font-weight-bold" row="0" col="0" />
-                    <ListPicker items="{{ rooms }}" textField="name" valueField="roomId" selectedIndex="{{ selectedRoom }}"
-                    selectedValue="{{ session.room }}"   loaded="onListPickerLoaded" class="p-15 picker" row="0" col="1"/>
-                    <StackLayout class="hr-light" row="1" colSpan="2"></StackLayout>
-                </GridLayout>
-
-                <Button text="Save" tap="onSessionSave" class="btn btn-primary btn-rounded-lg btn-active" />
-
-            </StackLayout>
+            </ScrollView>
             <ActivityIndicator busy="{{ isLoading }}" horizontalAlignment="center" verticalAlignment="center" />
         </GridLayout>
     </GridLayout>

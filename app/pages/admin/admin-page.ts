@@ -75,6 +75,7 @@ export function createSession(args: ItemEventData){
 }
 
 export function logout(args: ItemEventData){
+    firebase.logout();
     navigationModule.gotoStartPage();
 }
 
