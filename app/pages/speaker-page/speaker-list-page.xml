@@ -1,0 +1,43 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" shownModally="onShownModally" actionBarHidden="true" backgroundSpanUnderStatusBar="true">
+ 
+<GridLayout rows="auto,*">
+<!-- HEADER -->
+        <StackLayout class="page-header">
+            <GridLayout class="action-bar">
+                <StackLayout tap="addSpeaker" orientation="horizontal" class="action-wrap" horizontalAlignment="left">
+                    <Image stretch="none" class="icon-image" src="res://ic_arrow_back"/>
+                    <Label text="Back" class="back-text" />
+                </StackLayout>
+
+                <Label text="Add Speaker" class="action-bar-title" />
+            </GridLayout>
+        </StackLayout>
+
+  <ScrollView row="1" id="scroll1"  class="content-offset">
+          <GridLayout row="1" rows="*,*" columns="56,*" class="content">
+            <ListView id="sepakers-list" items="{{ speakers }}" itemTap="addSpeaker" 
+            row="3" colSpan="2" height="{{ speakers.length * 60}}" selectedBackgroundColor="#fac950" separatorColor="#FFFFFF">
+              <ListView.itemTemplate>
+                <GridLayout columns="56, *" class="speakers-row" >
+                  <Image src="{{ picture }}" class="speaker-image" stretch="aspectFit" rowSpan="2"/>
+
+                  <StackLayout col="1">
+                    <StackLayout orientation="horizontal">
+                      <Label text="{{ name }}" class="info-bigger bold" />
+                      <Label text="{{ twitterName ? ' (' + twitterName + ')' : '' }}" class="info-bigger" style="color: #A17201;" />
+                    </StackLayout>
+
+                    <Label text="{{ title }}" class="info" textWrap="true" style="font-style: italic;" />
+                  </StackLayout>
+                </GridLayout>
+              </ListView.itemTemplate>
+            </ListView>
+            <ActivityIndicator row="1" busy="{{ isLoading }}" horizontalAlignment="center" verticalAlignment="center" />
+          </GridLayout>
+          
+        </ScrollView>
+
+</GridLayout>
+
+
+</Page>

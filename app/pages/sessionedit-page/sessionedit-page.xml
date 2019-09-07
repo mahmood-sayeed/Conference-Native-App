@@ -9,7 +9,7 @@
                     <Label text="Back" class="back-text" />
                 </StackLayout>
 
-                <Label text="{{ name }}" class="action-bar-title" />
+                <Label text="Edit Session" class="action-bar-title" />
             </GridLayout>
         </StackLayout>
         <!-- Content -->
@@ -24,20 +24,8 @@
                     </StackLayout>
 
                     <StackLayout class="input-field">
-                        <Label text="Calender Event Id" class="label font-weight-bold m-b-5" />
-                        <Label text="{{ session.calendarEventId }}" class="info-bigger bold" />
-                        <StackLayout class="hr-light"></StackLayout>
-                    </StackLayout>
-
-                    <StackLayout class="input-field">
                         <Label text="Title" class="label font-weight-bold m-b-5" />
                         <TextField class="input" text="{{ session.title }}" />
-                        <StackLayout class="hr-light"></StackLayout>
-                    </StackLayout>
-
-                    <StackLayout class="input-field">
-                        <Label text="Rooms" class="label font-weight-bold m-b-5" />
-                        <ListPicker items="{{ rooms }}" textField="name" valueField="roomId" selectedIndex="{{ selectedRoom }}" selectedValue="{{ session.room }}" loaded="onListPickerLoaded" class="p-15 picker" />
                         <StackLayout class="hr-light"></StackLayout>
                     </StackLayout>
 
@@ -46,6 +34,46 @@
                         <TextView class="input" text="{{ session.description }}" />
                         <StackLayout class="hr-light"></StackLayout>
                     </StackLayout>
+
+                     <StackLayout class="input-field">
+                        <Label text="Room" class="label font-weight-bold m-b-5" />
+                        <!-- <ListPicker items="{{ rooms }}" textField="name" valueField="roomId" selectedIndex="{{ selectedRoom }}" selectedValue="{{ session.room }}" loaded="onListPickerLoaded" class="p-15 picker" /> -->
+
+                        <Label text="{{ roomInfo.name }}" class="info-bigger bold" />
+                    </StackLayout>
+
+                                  <!-- Line -->
+        <StackLayout class="horizontal-line" row="2" col="1" margin="0 0 0 0"/>
+
+        <!-- Speakers -->
+        <Label text="SPEAKERS" class="section-header" row="3" col="1" />
+
+        <ListView id="sepakers-list" items="{{ session.speakers }}" row="4" colSpan="2" height="{{ session.speakers.length * 60}}"
+                  selectedBackgroundColor="#fac950" separatorColor="#FFFFFF" >
+          <ListView.itemTemplate>
+            <GridLayout columns="56, *,30" class="speakers-row" swipe="backSwipe">
+              <Image src="{{ picture }}" class="speaker-image" stretch="aspectFit" rowSpan="2"/>
+
+              <StackLayout col="1" >
+                <StackLayout orientation="horizontal">
+                  <Label text="{{ name }}" class="info bold" />
+                  <Label text="{{ twitterName ? ' (' + twitterName + ')' : '' }}" class="info" style="color: #A17201;" />
+                </StackLayout>
+
+                <Label text="{{ title }}" class="info" textWrap="true" style="font-style: italic;" />
+               
+              </StackLayout>
+               <Image tap="deleteSpeaker" col="2" stretch="aspectFit" class="icon-image-delete" src="res://delete"/>
+               
+            </GridLayout>
+            
+            
+          </ListView.itemTemplate>
+        </ListView>
+
+                    <Button text="Add Speaker" tap="onSpeakerAdd" class="btn btn-primary btn-rounded-lg btn-active" />
+
+
 
                     <StackLayout class="input-field">
                         <Label text="Starts" class="label font-weight-bold m-b-5" />

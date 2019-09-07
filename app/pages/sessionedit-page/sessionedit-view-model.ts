@@ -1,6 +1,7 @@
 import { Observable } from "tns-core-modules/data/observable";
 import { Session, Speaker, RoomInfo } from "~/shared/interfaces";
 import { SessionData } from "~/data/session-data";
+import { RoomData } from "~/data/room-data";
 
 export class SessionEditViewModel extends Observable{
 
@@ -9,6 +10,8 @@ export class SessionEditViewModel extends Observable{
     private _sessionData: SessionData;
     private _speakers: Array<Speaker> = new Array<Speaker>(); 
     private _rooms: Array<RoomInfo> = new Array<RoomInfo>(); 
+    private _roomInfo: RoomInfo;
+    private _roomData: RoomData;
     
 
     constructor(session: Session){
@@ -20,9 +23,15 @@ export class SessionEditViewModel extends Observable{
 
     public async init(){
         console.log("calling init edit");
+        this._roomData= new RoomData();
+
         var promises = [];
         promises.push(this._sessionData.getAllSpeakers());
-        promises.push(this._sessionData.getAllRooms());
+        //promises.push(this._sessionData.getAllRooms());
+
+        if (this._session.room) {
+            promises.push(this._roomData.getRoomInfo(this._session.room));
+        }
              
 
         await Promise.all(promises)
@@ -30,8 +39,13 @@ export class SessionEditViewModel extends Observable{
                 this.pushSpeakers(values[0]);
                 console.log("got speakers: " + this._speakers.length);
                
-                this.pushRooms(values[1]);
-                console.log("got rooms: " + this._rooms.length);
+                // this.pushRooms(values[1]);
+                // console.log("got rooms: " + this._rooms.length);
+
+                if(values.length>1)
+                {
+                    this._roomInfo= values[1];
+                }
                 this.onDataLoaded();
             })
             .catch(e => {
@@ -52,12 +66,26 @@ export class SessionEditViewModel extends Observable{
         }
      }
 
+     public pushSpeaker(speaker: Speaker) {
+        this._session.speakers.push(speaker);
+        this.notify({object: this, eventName: Observable.propertyChangeEvent, propertyName: 'session.speakers', value: this._session.speakers});
+     }
+
+     public removeSpeaker(id:string)
+     {
+         var index= this._session.speakers.findIndex(x=>x.id == id);
+         this._session.speakers.splice(index,1);
+         this.notify({object: this, eventName: Observable.propertyChangeEvent, propertyName: 'session.speakers', value: this._session.speakers});
+     }
+
      private pushRooms(roomsFromservice: Array<RoomInfo>) {
         for(var i = 0;i<roomsFromservice.length;i++)
         {
             this._rooms.push(roomsFromservice[i]);
         }
      }
+
+    
 
     get session() {
         return this._session;
@@ -74,6 +102,14 @@ export class SessionEditViewModel extends Observable{
 
     get speakers():Array<Speaker>{
         return this._speakers;
+    }
+
+    get roomInfo():RoomInfo{
+        return this._roomInfo;
+    }
+    set roomInfo(value: RoomInfo) {
+        this._roomInfo = value;
+        this.notify({ object: this, eventName: Observable.propertyChangeEvent, propertyName: 'roomInfo', value: this.roomInfo });
     }
 
     get rooms():Array<RoomInfo>{
