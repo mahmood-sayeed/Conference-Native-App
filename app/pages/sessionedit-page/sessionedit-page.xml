@@ -38,8 +38,10 @@
                      <StackLayout class="input-field">
                         <Label text="Room" class="label font-weight-bold m-b-5" />
                         <!-- <ListPicker items="{{ rooms }}" textField="name" valueField="roomId" selectedIndex="{{ selectedRoom }}" selectedValue="{{ session.room }}" loaded="onListPickerLoaded" class="p-15 picker" /> -->
-
-                        <Label text="{{ roomInfo.name }}" class="info-bigger bold" />
+                        <GridLayout columns="*,30" class="speakers-row" >
+                        <Label col="0" text="{{ roomInfo.name }}" class="info-bigger bold" />
+                         <Image col="1" tap="onRoomChange" col="2" stretch="aspectFit" class="icon-image-delete" src="res://delete"/>
+                        </GridLayout>
                     </StackLayout>
 
                                   <!-- Line -->

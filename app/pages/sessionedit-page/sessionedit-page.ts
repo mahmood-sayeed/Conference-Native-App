@@ -6,6 +6,7 @@ import * as navigationModule from "~/shared/navigation";
 import { ListPicker } from "tns-core-modules/ui/list-picker";
 import { Button } from "tns-core-modules/ui/button/button";
 const modalViewModulets = "pages/speaker-page/speaker-list-page";
+const modalViewRooms = "pages/room-page/room-list-page";
 
 const pokemonList = ["Bulbasaur", "Parasect", "Venonat", "Venomoth", "Diglett",
     "Dugtrio", "Meowth", "Persian", "Psyduck", "Arcanine", "Poliwrath", "Machoke"];
@@ -29,7 +30,7 @@ export function onSpeakerAdd(args) {
     const option: ShowModalOptions = {
         context: { existingSpeakers: vm.session.speakers },
         closeCallback: (speaker) => {
-            // Receive data from the modal view. e.g. username & password
+            
             if(speaker.id)
             {
                 vm.pushSpeaker(speaker);
@@ -45,16 +46,16 @@ export function onRoomChange(args) {
     const option: ShowModalOptions = {
         context: { existingRoom: vm.session.room },
         closeCallback: (room) => {
-            // Receive data from the modal view. e.g. username & password
-            if(room.id)
+            
+            if(room.roomId)
             {
                 vm.roomInfo= room;
-                vm.session.room=room.id;
+                vm.session.room=room.roomId;
             }
         },
         fullscreen: true
     };
-    mainView.showModal(modalViewModulets, option);
+    mainView.showModal(modalViewRooms, option);
 }
 
 
