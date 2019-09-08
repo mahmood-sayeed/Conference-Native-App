@@ -1,0 +1,23 @@
+<!-- >> modal-view-xml -->
+<Page xmlns="http://www.nativescript.org/tns.xsd" shownModally="onShownModally">
+
+<!-- HEADER -->
+        <StackLayout class="page-header">
+            <GridLayout class="action-bar">
+                <StackLayout tap="onSave" orientation="horizontal" class="action-wrap" horizontalAlignment="left">
+                    <Image stretch="none" class="icon-image" src="res://ic_arrow_back"/>
+                    <Label text="Back" class="back-text" />
+                </StackLayout>
+
+                <Label text="Select Item" class="action-bar-title" />
+            </GridLayout>
+        </StackLayout>
+
+    <StackLayout>
+       <ListPicker items="{{ items }}" textField="name" valueField="value" loaded="onListPickerLoaded" selectedIndex="{{ index }}"
+    selectedValue="{{ selectedItem }}"  class="p-15 picker" />¨
+       <Button text="Save" tap="onSave" class="btn btn-primary btn-rounded-lg btn-active" />
+    </StackLayout>
+    
+</Page>
+<!-- << modal-view-xml -->

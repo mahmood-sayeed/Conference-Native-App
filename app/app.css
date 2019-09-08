@@ -102,6 +102,13 @@ SegmentedBar {
     height: 8%;
 }
 
+.icon-image-add {
+    vertical-align: center;
+    horizontal-align: right;
+    width:8%;
+    height: 8%;
+}
+
 .action-wrap {
     padding-left: 12;
     padding-right: 12;

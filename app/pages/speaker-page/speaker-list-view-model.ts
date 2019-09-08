@@ -72,11 +72,16 @@ export class SpeakerListViewModel extends Observable {
     }
 
     private filter() {
-        this._speakers = this._speakers.filter(s=> {
-            return this._addedSpeakers.findIndex(k=>s.id==k.id) < 0;
-        });
+        if(this._addedSpeakers.length >0)
+        {
+            this._speakers = this._speakers.filter(s=> {
+                return this._addedSpeakers.findIndex(k=>s.id==k.id) < 0;
+            });
+    
+            console.log(this._speakers.length);
+            this.notify({object: this, eventName: Observable.propertyChangeEvent, propertyName: 'speakers', value: this._speakers});
 
-        console.log(this._speakers.length);
-        this.notify({object: this, eventName: Observable.propertyChangeEvent, propertyName: 'speakers', value: this._speakers});
+        }
+        
     }
 }

@@ -1,15 +1,14 @@
 import { SessionEditViewModel } from "./sessionedit-view-model";
 import { Page, NavigatedData, EventData, ShowModalOptions } from "tns-core-modules/ui/page/page";
-import { Session, Speaker } from "~/shared/interfaces";
+import { Session } from "~/shared/interfaces";
 import { GestureEventData, SwipeGestureEventData, SwipeDirection } from "tns-core-modules/ui/gestures/gestures";
 import * as navigationModule from "~/shared/navigation";
 import { ListPicker } from "tns-core-modules/ui/list-picker";
 import { Button } from "tns-core-modules/ui/button/button";
 const modalViewModulets = "pages/speaker-page/speaker-list-page";
 const modalViewRooms = "pages/room-page/room-list-page";
+const modalViewCommon = "pages/modal/modal-view-page";
 
-const pokemonList = ["Bulbasaur", "Parasect", "Venonat", "Venomoth", "Diglett",
-    "Dugtrio", "Meowth", "Persian", "Psyduck", "Arcanine", "Poliwrath", "Machoke"];
 var vm: SessionEditViewModel;
 var page;
 
@@ -58,6 +57,25 @@ export function onRoomChange(args) {
     mainView.showModal(modalViewRooms, option);
 }
 
+export function onTimeChange(args) {
+    const mainView: Button = <Button>args.object;
+    const option: ShowModalOptions = {
+        context: { items: vm.timeSlots },
+        closeCallback: (value) => {
+            
+            if(value)
+            {   
+                var times = value.split('-',2);
+                console.log(times);
+               
+                vm.start=times[0];
+                vm.end=times[1];
+            }
+        },
+        fullscreen: true
+    };
+    mainView.showModal(modalViewCommon, option);
+}
 
 
 export function backTap(args: GestureEventData) {

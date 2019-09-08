@@ -1,7 +1,9 @@
 import { Observable } from "tns-core-modules/data/observable";
-import { Session, Speaker, RoomInfo } from "~/shared/interfaces";
+import { Session, Speaker, RoomInfo, ConfTimeSlot, ConferenceDay } from "~/shared/interfaces";
 import { SessionData } from "~/data/session-data";
 import { RoomData } from "~/data/room-data";
+import { conferenceDays } from "~/shared/static-data";
+
 
 export class SessionEditViewModel extends Observable{
 
@@ -12,7 +14,8 @@ export class SessionEditViewModel extends Observable{
     private _rooms: Array<RoomInfo> = new Array<RoomInfo>(); 
     private _roomInfo: RoomInfo;
     private _roomData: RoomData;
-    
+    private SESSION_LENGTH = 60;
+    private _timeslots: Array<any>=[];
 
     constructor(session: Session){
         super();
@@ -32,6 +35,8 @@ export class SessionEditViewModel extends Observable{
         if (this._session.room) {
             promises.push(this._roomData.getRoomInfo(this._session.room));
         }
+
+        this.generateConfTimeslots();
              
 
         await Promise.all(promises)
@@ -85,7 +90,52 @@ export class SessionEditViewModel extends Observable{
         }
      }
 
+     private async generateConfTimeslots()
+     {
+        for (var confDay of conferenceDays) {
+            
+            var startTimeList = this.getTimeRange(this.addMinutes(confDay.date, 240), this.addMinutes(confDay.date, 780), this.SESSION_LENGTH);
+            for (var startTime of startTimeList) {
+                 
+                if (startTime.getHours() == 4) {
+                    // isBreak = true;
+                    // sessionTitle = 'Welcome Message';
+                    continue;
+                }
+                else if (startTime.getHours() == 8) {
+                    // isBreak = true;
+                    // sessionTitle = 'Lunch Break';
+                    continue;
+                }
+                var endTime = this.addMinutes(startTime, this.SESSION_LENGTH);
+
+                var cTimeSlot= { name: startTime, value: startTime+"-"+endTime, start: startTime, end: endTime };
+                this._timeslots.push(cTimeSlot);
+            }
+        
+        }
+
+     }
+
     
+    private addMinutes(date: Date, minutes: number) {
+        return new Date(date.getTime() + minutes*60000);
+    }
+
+    private getTimeRange(startTime: Date, endTime: Date, minutesBetween: number) : Array<Date> {
+        var startTimeList: Array<Date> = [];
+        var diffInMinutes = Math.round((endTime.getTime() - startTime.getTime()) / 60000);
+        var periods: number = diffInMinutes / minutesBetween;
+        for (var i = 0; i <= periods; i++) {
+            let periodStart = this.addMinutes(startTime, (minutesBetween * i));
+            startTimeList.push(periodStart);
+        }
+        return startTimeList;
+    }
+
+    get timeSlots() {
+        return this._timeslots;
+    }
 
     get session() {
         return this._session;
@@ -110,6 +160,24 @@ export class SessionEditViewModel extends Observable{
     set roomInfo(value: RoomInfo) {
         this._roomInfo = value;
         this.notify({ object: this, eventName: Observable.propertyChangeEvent, propertyName: 'roomInfo', value: this.roomInfo });
+    }
+
+    get start():string{
+        return this._session.start;
+    }
+
+    get end():string{
+        return this._session.end;
+    }
+
+    set start(value: string) {
+        this._session.start = value;
+        this.notify({ object: this, eventName: Observable.propertyChangeEvent, propertyName: 'start', value: this._session.start });
+    }
+
+    set end(value: string) {
+        this._session.end = value;
+        this.notify({ object: this, eventName: Observable.propertyChangeEvent, propertyName: 'end', value: this._session.end });
     }
 
     get rooms():Array<RoomInfo>{
