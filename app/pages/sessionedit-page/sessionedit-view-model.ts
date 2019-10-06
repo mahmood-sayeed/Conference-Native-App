@@ -3,23 +3,34 @@ import { Session, Speaker, RoomInfo, ConfTimeSlot, ConferenceDay } from "~/share
 import { SessionData } from "~/data/session-data";
 import { RoomData } from "~/data/room-data";
 import { conferenceDays } from "~/shared/static-data";
+import * as faker from "faker";
 
 
 export class SessionEditViewModel extends Observable{
 
-    private _session: Session;
+    //private _session: Session;
+    private _header: string = "Create Session";
+    private _session = {} as Session;
     private _isLoading: boolean = false;
     private _sessionData: SessionData;
     private _speakers: Array<Speaker> = new Array<Speaker>(); 
     private _rooms: Array<RoomInfo> = new Array<RoomInfo>(); 
     private _roomInfo: RoomInfo;
+    
     private _roomData: RoomData;
     private SESSION_LENGTH = 60;
     private _timeslots: Array<any>=[];
 
     constructor(session: Session){
         super();
-        this._session = session;
+        if (session){
+            this._session = session;
+            this._header = "Edit Session";
+        }
+        else{
+            this._session.id = faker.random.uuid();
+        }
+        
         this._sessionData= new SessionData();
         console.log("contructor log")
     }
@@ -172,6 +183,22 @@ export class SessionEditViewModel extends Observable{
     set existingSpeakers(value: Array<Speaker>) {
         this._session.speakers = value;
         this.notify({ object: this, eventName: Observable.propertyChangeEvent, propertyName: 'existingSpeakers', value: this.existingSpeakers });
+    }
+
+    get id():string{
+        return this._session.id;
+    }
+    set id(value: string){
+        this._session.id = value;
+        this.notify({ object: this, eventName: Observable.propertyChangeEvent, propertyName: 'id', value: this.id });
+    }
+
+    get header():string{
+        return this._header;
+    }
+    set header(value: string){
+        this._header = value;
+        this.notify({ object: this, eventName: Observable.propertyChangeEvent, propertyName: 'header', value: this.header });
     }
 
     get start():string{
