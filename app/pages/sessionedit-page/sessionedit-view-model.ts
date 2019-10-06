@@ -72,8 +72,12 @@ export class SessionEditViewModel extends Observable{
      }
 
      public pushSpeaker(speaker: Speaker) {
+        console.log("push speakers "+ this._session.speakers);
+        if( !this.existingSpeakers){
+            this.existingSpeakers = new Array<Speaker>();
+        }
         this._session.speakers.push(speaker);
-        this.notify({object: this, eventName: Observable.propertyChangeEvent, propertyName: 'session.speakers', value: this._session.speakers});
+        this.existingSpeakers = this._session.speakers;
      }
 
      public removeSpeaker(id:string)
@@ -160,6 +164,14 @@ export class SessionEditViewModel extends Observable{
     set roomInfo(value: RoomInfo) {
         this._roomInfo = value;
         this.notify({ object: this, eventName: Observable.propertyChangeEvent, propertyName: 'roomInfo', value: this.roomInfo });
+    }
+
+    get existingSpeakers():Array<Speaker>{
+        return this._session.speakers;
+    }
+    set existingSpeakers(value: Array<Speaker>) {
+        this._session.speakers = value;
+        this.notify({ object: this, eventName: Observable.propertyChangeEvent, propertyName: 'existingSpeakers', value: this.existingSpeakers });
     }
 
     get start():string{
